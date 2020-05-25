@@ -1,51 +1,52 @@
-from crypto import convertDataToJSON, pinJSONtoIPFS, initContract, w3
+from main import convertDataToJSON, pinJSONtoIPFS, initContract, w3
 import sys
 from pprint import pprint
 
-print("accident.py",__name__)
+medicalhistory = initContract()
 
-cryptofax = initContract()
-
-def createAccidentReport():
-    time = input("Date of the Accident")
-    description = input("Description of the Accident")
-    token_id = int(input("token_id"))
+def createPatient():
+    time = input("Date of Birth"), input("Time of Birth")
+    description = {"Patient Name :":input("Patient Name"),
+                    "Patient Gender :": input("Patient Gender"),
+                    "Doctor Name :": input("Doctor Name"),
+                    "Hospital Name :": input("Hospital Name")}
+    patient_id = int(input("patient_id"))
 
     json_data = convertDataToJSON(time, description)
-    report_uri = pinJSONtoIPFS(json_data)
+    uri = pinJSONtoIPFS(json_data)
 
-    return token_id, report_uri
+    return patient_id, uri
 
-def reportAccident(token_id, report_uri):
-    tx_hash=cryptofax.functions.reportAccident(token_id,report_uri).transact(
+def reportBirth(patient_id, uri):
+    tx_hash=medicalhistory.functions.reportBirth(patient_id,uri).transact(
         {"from":w3.eth.accounts[0]}
     )
 
     receipt = w3.eth.waitForTransactionReceipt(tx_hash)
     return receipt
 
-def getAccidentReports(token_id):
-    accident_filter = cryptofax.events.Accident.createFilter(
-        fromBlock='0x0', 
-        argument_filters = {"token_id":token_id}
-    )
-    return accident_filter.get_all_entries()
+#def getAccidentReports(token_id):
+#    accident_filter = medicalhistory.events.Accident.createFilter(
+#        fromBlock='0x0', 
+#        argument_filters = {"token_id":token_id}
+#    )
+#    return accident_filter.get_all_entries()
 
 if __name__ == "__main__":
     if sys.argv[1] == 'report':
-        token_id, report_uri = createAccidentReport()
+        patient_id, uri = createPatient()
 
-        receipt = reportAccident(
-            token_id,
-            report_uri)
+        receipt = reportBirth(
+            patient_id,
+            uri)
 
         pprint(dict(receipt))
-        print("Report IPFS Hash", report_uri)
+        print("Report IPFS Hash", uri)
 
-    elif sys.argv[1] == 'get':
-        token_id = int(sys.argv[2])
-        car = cryptofax.functions.cars(token_id).call()
-        reports = getAccidentReports(token_id)
-
-        pprint(reports)
-        print("VIN", car[0], "has been in", car[1], "accidents.")
+#    elif sys.argv[1] == 'get':
+#        token_id = int(sys.argv[2])
+#        car = medicalhistory.functions.cars(token_id).call()
+#        reports = getAccidentReports(token_id)
+#
+#        pprint(reports)
+#        print("VIN", car[0], "has been in", car[1], "accidents.")

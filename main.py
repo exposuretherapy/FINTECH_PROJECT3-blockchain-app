@@ -27,7 +27,7 @@ def convertDataToJSON(time, description):
     data = {
         'pinataOptions':{"cidVersion":1},
         'pinataContent': {
-            "name":"Example Accident Report",
+            "name":"Birth Certificate",
             "description":description,
             #"image": "ipfs://bafybeihsecbomd7gbu6qjnvs7jinlxeufujqzuz3ccazmhvkszdjpzzrsu",
             "time": time
