@@ -11,7 +11,7 @@ contract MedicalHistory is ERC721Full {
         
         mapping (uint => string) public Patients;
         
-        event newPatient(uint patient_ids, string uri);
+        event newPatient(uint patient_id, string uri);
         
         function createPatient(
                             //address owner, 
@@ -24,6 +24,11 @@ contract MedicalHistory is ERC721Full {
             _setTokenURI (patient_id, uri);
             
             emit newPatient(patient_id, uri);
+        }
+        
+       function reportBirth(uint patient_id, 
+                            string memory uri) public returns(uint){
+                                emit newPatient(patient_id, uri);
         }
     
 }
