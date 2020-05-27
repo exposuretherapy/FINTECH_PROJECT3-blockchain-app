@@ -4,7 +4,7 @@ import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v2.5
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v2.5.0/contracts/drafts/Counters.sol";
 
 contract MedicalHistory is ERC721Full {
-    constructor() ERC721Full("MedicalHistory", "MDH") public{}
+   constructor() ERC721Full("MedicalHistory", "MDH") public{}
         
         using Counters for Counters.Counter;
         Counters.Counter patient_ids;
@@ -13,23 +13,21 @@ contract MedicalHistory is ERC721Full {
         
         event newPatient(uint patient_id, string uri);
         
-        function createPatient(
-                            //address owner, 
-                            //string memory patient_name, 
-                                string memory uri) public returns(uint) {
+        function createPatient(string memory uri) public returns(uint) {
             patient_ids.increment();
             uint patient_id = patient_ids.current();
-            
-            //_mint(owner, patient_id);
-            _setTokenURI (patient_id, uri);
-            
+            Patients[patient_id] = uri;
             emit newPatient(patient_id, uri);
         }
         
-       function reportBirth(uint patient_id, 
-                            string memory uri) public returns(uint){
-                                emit newPatient(patient_id, uri);
-        }
+        function getPatientData(uint patient_id) public view returns(string memory) {
+            return Patients[patient_id];
+        } 
+        
+        
+    //   function reportBirth(string memory uri) public returns(uint){
+    //         emit newPatient(patient_id, uri);
+    //     }
     
 }
     
@@ -160,3 +158,4 @@ contract MedicalHistory is ERC721Full {
       
 }
 */
+

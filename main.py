@@ -7,8 +7,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-print('crypto.py',__name__)
-
 headers = {
     "Content-Type":"application/json",
     "pinata_api_key": os.getenv('PINATA_API_KEY'),
