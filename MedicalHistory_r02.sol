@@ -100,3 +100,4 @@ contract MedicalHistory is ERC721Full {
     }
 }
 
+// 20200528
