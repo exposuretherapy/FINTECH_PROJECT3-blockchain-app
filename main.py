@@ -21,18 +21,13 @@ def pinJSONtoIPFS(json):
     ipfs_hash = r.json()["IpfsHash"]
     return f"ipfs://{ipfs_hash}"
 
-def convertDataToJSON(time, description):
-    data = {
+def convertDataToJSON(data):
+    d = {
         'pinataOptions':{"cidVersion":1},
-        'pinataContent': {
-            "name":"Birth Certificate",
-            "description":description,
-            #"image": "ipfs://bafybeihsecbomd7gbu6qjnvs7jinlxeufujqzuz3ccazmhvkszdjpzzrsu",
-            "time": time
-        }
+        'pinataContent': data
     }
 
-    return json.dumps(data)
+    return json.dumps(d)
 
 def initContract():
     with open(Path('MedicalHistory.json')) as json_file:

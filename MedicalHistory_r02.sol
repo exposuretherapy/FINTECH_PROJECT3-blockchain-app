@@ -99,5 +99,3 @@ contract MedicalHistory is ERC721Full {
         return DoctorVisits[doctorVisit_id];
     }
 }
-
-// 20200528
