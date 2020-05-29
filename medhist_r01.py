@@ -233,9 +233,12 @@ def getPatientData(patient_id):
     uri=medicalhistory.functions.getPatientData(patient_id).call()
     return uri
 
-def get_uri(uri):
-    client = ipfshttpclient.connect('/dns/ipfs.io/tcp/443/https')
-    return client.cat(uri.split('/')[-1])
+# def get_uri(uri):
+#     client = ipfshttpclient.connect('/dns/ipfs.io/tcp/443/https')
+#     return client.cat(uri.split('/')[-1])
+
+def get_data_from_uri(uri_hash):
+    return r.get(f"https://ipfs.io/ipfs/{uri_hash}").json()
 
 #def getAccidentReports(token_id):
 #    accident_filter = medicalhistory.events.Accident.createFilter(
