@@ -14,7 +14,7 @@ contract MedicalHistory is ERC721Full {
     Counters.Counter doctor_ids;
     Counters.Counter hospital_ids;
     Counters.Counter procedure_ids;
-    Counters.Counter doctorVisit_ids
+    Counters.Counter doctorVisit_ids;
 //    address payable private Admin;
     
 // EVENTS
@@ -49,7 +49,7 @@ contract MedicalHistory is ERC721Full {
     }
     
     //HOSPITALS    
-    function createHospital ( string memory uri) public returns(uint) {
+    function createHospital (string memory uri) public returns(uint) {
         //generate Id, name, address,status
         hospital_ids.increment();
         uint hospital_id = hospital_ids.current();
@@ -62,7 +62,7 @@ contract MedicalHistory is ERC721Full {
     }
     
     //PATIENTS    
-    function createPatient ( string memory uri) public returns(uint) {
+    function createPatient (string memory uri) public returns(uint) {
         //generate id, name, DOB, Blood type, Insurance, sex, status
         patient_ids.increment();
         uint patient_id = patient_ids.current();
@@ -75,11 +75,10 @@ contract MedicalHistory is ERC721Full {
     }
         
     //PROCEDURES
-    function createProcedures(string name, string memory uri) public returns(uint) {
+    function createProcedures(string memory name, string memory uri) public returns(uint) {
         //generate procedure id, name
         procedure_ids.increment();
         uint procedure_id = procedure_ids.current();
-        // _setTokenURI (procedure_id, uri);
         Procedures[procedure_id] = uri;
         emit newProcedure (procedure_id, name, uri);
     }        
@@ -87,57 +86,18 @@ contract MedicalHistory is ERC721Full {
         return Procedures[procedure_id];
     }
     
-    // DoctorVisits
-    function create newDoctorVisit(uint patient_id, uint doctor_id, uint hospital_id, uint procedure_id, string memory uri) public returns(uint) {
+    // DOCTORVISITS
+    function createnewDoctorVisit(uint patient_id, uint doctor_id, uint hospital_id, uint procedure_id, string memory uri) public returns(uint) {
         doctorVisit_ids.increment();
         uint doctorVisit_id = doctorVisit_ids.current();
         DoctorVisits[doctorVisit_id] = uri;
         uint visitTime = now;
-        emit newDoctorVisit(visitTime, doctorVisit_id, patient_id, doctor_id, hospital_id, procedure_id, uri)
+        emit newDoctorVisit(visitTime, doctorVisit_id, patient_id, doctor_id, hospital_id, procedure_id, uri);
     }
 
     function getnewDoctorVisit(uint doctorVisit_id) public view returns (string memory){
-        return DoctorVisits[doctorVisit_id]
+        return DoctorVisits[doctorVisit_id];
     }
 }
 
-
-
-//FUNCTIONS WE'RE WORKING ON OR DISCARDING
-
-
-// function updateInsurance (uint patient_id, string memory uri) public returns(uint) {
-    
-// }
-       
-       
-    // function doctorVisit (uint patient_id, uint doctor_id, uint hospital_id,  uint procedure_id, string memory uri) public {
-        
-    // }
-    
-    // function updatePatient (uint patient_id, string memory uri) public returns(uint) {
-    //         name; insurance; sex; status, blood type, DOB
-    // }
-        
-//         function createERdata ( uint patient_id, string memory uri) public returns(uint) {
-//             //allergies, HRF, prescriptions, height, weight, emergency contact
-            
-//         }
-        
-//         function UpdateErdata (uint patient_id, string memory uri) public returns(uint) {
-//  //           allergies, HRF, prescriptions, height, weight
-//         }
-
-//         function updateHospital( uint hospital_id, string memory uri) public returns(uint) {
-// //            name; address; status;
-//         }
-        
-// function createProcedure(string memory uri) public returns(uint) {
-//   uint procedure_id;  
-//   string memory name; 
-// }
-     
-     
-    // function updateDoctor( uint doctor_id,string memory uri) public returns(uint) {
-    //     // name, sex, licens, specialty, status
-    // }    
+// 20200528
