@@ -275,7 +275,7 @@ def createDoctorVisit():
     # time = input("Date of Birth"), input("Time of Birth")
     description = {"Date :":input("Date"),
                     "Reason for visit :": input("Reason for visit"),
-                    "Assessment :": input("Assessment")
+                    "Assessment :": input("Assessment"),
                     "Notes :": input("Notes") }
 
     json_data = convertDataToJSON(time, description)
