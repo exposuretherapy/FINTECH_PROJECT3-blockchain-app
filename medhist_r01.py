@@ -7,11 +7,11 @@ import ipfshttpclient
 medicalhistory = initContract()
 
 def createProcedure():
-    # time = input("Date of Birth"), input("Time of Birth")
+    time = input("Date"), input("Date")
     description = {"Procedure Name :":input("Procedure Name"),
                     "Procedure Description :": input("Procuedure Description")}
 
-    json_data = convertDataToJSON(time, description)
+    json_data = convertDataToJSON( description)
     uri = pinJSONtoIPFS(json_data)
 
     tx_hash=medicalhistory.functions.createProcedure(uri).transact(
@@ -57,7 +57,7 @@ if __name__ == "__main__":
 
 # Doctor
 def createDoctor():
-    # time = input("Date of Birth"), input("Time of Birth")
+    time = input("Date"), input("Date")
     description = {"Doctor Name :":input("Doctor Name"),
                     "Doctor Gender :": input("Doctor Gender"),
                     "Hospital Name :": input("Hospital Name")}
@@ -109,7 +109,7 @@ if __name__ == "__main__":
 
 # Hospital
 def createHospital():
-    # time = input("Date of Birth"), input("Time of Birth")
+    time = input("Date"), input("Date")
     description = {"Hospital Name :":input("Hospital Name"),
                     "State :": input("State"),
                     "City :": input("City")}
@@ -272,7 +272,7 @@ if __name__ == "__main__":
 
 # DoctorVisit
 def createDoctorVisit():
-    # time = input("Date of Birth"), input("Time of Birth")
+    time = input("Date"), input("Date")
     description = {"Date :":input("Date"),
                     "Reason for visit :": input("Reason for visit"),
                     "Assessment :": input("Assessment"),
