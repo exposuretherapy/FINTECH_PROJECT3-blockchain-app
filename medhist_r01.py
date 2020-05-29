@@ -41,12 +41,12 @@ def _extract_arg_from_event(events, arg):
     return [event['args'][arg] for event in events]
 
 if __name__ == "__main__":
-    if sys.argv[1] == 'report':
+    if sys.argv[1] == 'reportProcedure':
  
         uri, receipt = createProcedure()
         print("Report IPFS Hash", uri)
 
-    elif sys.argv[1] == 'get':
+    elif sys.argv[1] == 'getProcedure':
 
        pprint(get_all_procedure_ids())
 
@@ -92,12 +92,12 @@ def _extract_arg_from_event(events, arg):
     return [event['args'][arg] for event in events]
 
 if __name__ == "__main__":
-    if sys.argv[1] == 'report':
+    if sys.argv[1] == 'reportDoctor':
  
         uri, receipt = createDoctor()
         print("Report IPFS Hash", uri)
 
-    elif sys.argv[1] == 'get':
+    elif sys.argv[1] == 'getDoctor':
 
        pprint(get_all_Doctor_ids())
 
@@ -144,12 +144,12 @@ def _extract_arg_from_event(events, arg):
     return [event['args'][arg] for event in events]
 
 if __name__ == "__main__":
-    if sys.argv[1] == 'report':
+    if sys.argv[1] == 'reportHospital':
  
         uri, receipt = createHospital()
         print("Report IPFS Hash", uri)
 
-    elif sys.argv[1] == 'get':
+    elif sys.argv[1] == 'getHospital':
 
        pprint(get_all_Hospital_ids())
 
@@ -255,12 +255,12 @@ def _extract_arg_from_event(events, arg):
     return [event['args'][arg] for event in events]
 
 if __name__ == "__main__":
-    if sys.argv[1] == 'report':
+    if sys.argv[1] == 'reportPatient':
  
         uri, receipt = createPatient()
         print("Report IPFS Hash", uri)
 
-    elif sys.argv[1] == 'get':
+    elif sys.argv[1] == 'getPatient':
 
        pprint(get_all_patient_ids())
 
@@ -308,12 +308,12 @@ def _extract_arg_from_event(events, arg):
     return [event['args'][arg] for event in events]
 
 if __name__ == "__main__":
-    if sys.argv[1] == 'report':
+    if sys.argv[1] == 'reportDoctorVisit':
  
         uri, receipt = createDoctorVisit()
         print("Report IPFS Hash", uri)
 
-    elif sys.argv[1] == 'get':
+    elif sys.argv[1] == 'getDoctorVisit':
 
        pprint(get_all_doctorVisit_ids())
 
