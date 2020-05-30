@@ -315,8 +315,10 @@ if __name__ == "__main__":
 
        data = get_uri(uri)
 
-       print (f"Input date : {data['Date & Time :'][0]}.")
-       print (f"Input time : {data['Date & Time :'][1]}.")
+       print (f"Visit date : {data['Date & Time :'][0]}.")
+       print (f"Visit time : {data['Date & Time :'][1]}.")
+       print (f"Hospital name: {data['Hospital ID']}.")
+       print (f"Attending Doctor: {data['Doctor ID']}")
        print (f"Reason for visit: {data['Reason for visit :']}.")
        print (f"Assessment: {data['Assessment :']}.")
        print (f"Notes: {data['Notes :']}.")
@@ -325,32 +327,64 @@ if __name__ == "__main__":
     elif sys.argv[1] == 'printReport':
 
         patient_id = int(input('patient_id'))
-        uri = getPatientData(patient_id)
+        patientURI = getPatientData(patient_id)
 
-        data = get_uri(uri)
+        patientDATA = get_uri(patientURI)
+
+        L = []
+        listVisits=get_all_doctorVisit_ids()
+        for i in listVisits:
+            visitURI=getDoctorVisitData(i)
+            visitDATA=get_uri(visitURI)
+            L.append(
+                visitDATA
+            )
+
+        d = {}
+        listDoctors = get_all_doctor_ids()
+        for i in listDoctors:
+            doctorURI=getDoctorData(i)
+            doctorDATA=get_uri(doctorURI)
+            d[str(i)] = str(doctorDATA['Doctor Name :'])
+
+        h = {}
+        listHospitals=get_all_hospital_ids()
+        for i in listHospitals:
+            hospitalURI = getHospitalData(i)
+            hospitalDATA = get_uri(hospitalURI)
+            h[str(i)] = str(hospitalDATA['Hospital Name :'])
+
          
-         
-        #  mdFile = MdUtils(file_name="Patient_Report", title="Patient_Report")
-        #  mdFile.new_header(level=1, title="BEEFCAKE PUBLIC HOSPITAL")
-        #  mdFile.new_paragraph("On {data['Date & Time :][0]}")
-
-
         output_path = Path('PatientReport.txt')
 
-        text = {"Input date" : data['Date & Time :'][0],
-                "Input time" : data['Date & Time :'][1],
-                "Patient's name" : data['Patient Name :'],
-                "Patient's gender" : data['Patient Gender :'],
-                "Doctor's name" : data['Doctor Name :'],
-                "Hospital name" : data['Hospital Name :']
-                }
+        text = [
+            {"Input date" : patientDATA['Date & Time :'][0],
+                "Input time" : patientDATA['Date & Time :'][1],
+                "Patient's name" : patientDATA['Patient Name :'],
+                "Patient's gender" : patientDATA['Patient Gender :'],
+                "Doctor's name" : patientDATA['Doctor Name :'],
+                "Hospital name" : patientDATA['Hospital Name :']
+                },
+                "DOCTOR VISITS",
+                "________________________________________",
+                L,
+                "LIST OF DOCTORS",
+                "________________________________________",
+                d,
+                "LIST OF HOSPITALS",
+                "________________________________________",
+                h
 
+                ]
+                
+    
         json_dump = json.dumps(text, indent = 4)
 
         with open(output_path,'w') as file:
             file.write(str(json_dump))
 
 
+### LISTS
 # GET PATIENT LIST
     elif sys.argv[1] == 'listPatients':
 
@@ -390,6 +424,20 @@ if __name__ == "__main__":
             uri = getHospitalData(i)
             data = get_uri(uri)
             d[str(i)] = str(data['Hospital Name :'])
+
+        print (d)
+
+# GET PROCEDURE LIST
+    elif sys.argv[1] == 'listProcedures':
+
+        listProcedures=get_all_procedure_ids()
+        
+
+        d = {}
+        for i in listProcedures:
+            uri = getProcedures(i)
+            data = get_uri(uri)
+            d[str(i)] = str(data['Procedure Name :'])
 
         print (d)
 
