@@ -2,7 +2,10 @@ from main import convertDataToJSON, pinJSONtoIPFS, initContract, w3
 import sys
 from pprint import pprint
 import requests as r
-import ipfshttpclient
+from pathlib import Path
+import json
+# from mdutils.mdutils import MdUtils
+# from mdutils import Html
 
 medicalhistory = initContract()
 
@@ -258,6 +261,7 @@ if __name__ == "__main__":
     elif sys.argv[1] == 'reportPatient':
  
         uri, receipt = createPatient()
+        # pprint(receipt)
         print("Report IPFS Hash", uri)
 
     elif sys.argv[1] == 'getPatient':
@@ -317,3 +321,33 @@ if __name__ == "__main__":
        print (f"Assessment: {data['Assessment :']}.")
        print (f"Notes: {data['Notes :']}.")
        
+ # PATIENT REPORT
+    elif sys.argv[1] == 'printReport':
+
+        patient_id = int(input('patient_id'))
+        uri = getPatientData(patient_id)
+
+        data = get_uri(uri)
+         
+         
+        #  mdFile = MdUtils(file_name="Patient_Report", title="Patient_Report")
+        #  mdFile.new_header(level=1, title="BEEFCAKE PUBLIC HOSPITAL")
+        #  mdFile.new_paragraph("On {data['Date & Time :][0]}")
+
+
+        output_path = Path('PatientReport.txt')
+
+        text = {"Input date" : data['Date & Time :'][0],
+                "Input time" : data['Date & Time :'][1],
+                "Patient's name" : data['Patient Name :'],
+                "Patient's gender" : data['Patient Gender :'],
+                "Doctor's name" : data['Doctor Name :'],
+                "Hospital name" : data['Hospital Name :']
+                }
+
+        json_dump = json.dumps(text, indent = 4)
+
+        with open(output_path,'w') as file:
+            file.write(str(json_dump))
+
+
