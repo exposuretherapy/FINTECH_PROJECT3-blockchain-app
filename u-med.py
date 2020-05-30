@@ -351,3 +351,46 @@ if __name__ == "__main__":
             file.write(str(json_dump))
 
 
+# GET PATIENT LIST
+    elif sys.argv[1] == 'listPatients':
+
+        listPatients=get_all_patient_ids()
+        
+
+        d = {}
+        for i in listPatients:
+            uri = getPatientData(i)
+            data = get_uri(uri)
+            d[str(i)] = str(data['Patient Name :'])
+
+        print (d)
+
+# GET DOCTOR LIST
+    elif sys.argv[1] == 'listDoctors':
+
+        listDoctors=get_all_doctor_ids()
+        
+
+        d = {}
+        for i in listDoctors:
+            uri = getDoctorData(i)
+            data = get_uri(uri)
+            d[str(i)] = str(data['Doctor Name :'])
+
+        print (d)
+
+# GET HOSPITAL LIST
+    elif sys.argv[1] == 'listHospitals':
+
+        listHospitals=get_all_hospital_ids()
+        
+
+        d = {}
+        for i in listHospitals:
+            uri = getHospitalData(i)
+            data = get_uri(uri)
+            d[str(i)] = str(data['Hospital Name :'])
+
+        print (d)
+
+
